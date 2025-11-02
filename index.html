@@ -15,18 +15,20 @@
       --icon-color: #362114;
     }
 
-    /* The image fills the section and SCROLLS with the page */
+    /* Scrolls naturally with the page */
     .hero{
-      width: 100vw;
-      height: 200vh; /* >= 100vh so there's something to scroll */
-      background-image: url("assets/7.jpg");
-      background-size: cover;            /* no white bars on the sides */
-      background-position: center bottom;/* start near the bottom if your text is down there */
-      background-repeat: no-repeat;
-      /* NOTE: background-attachment stays default 'scroll' (NOT fixed) */
+      position: relative;
+      width: 100vw;    /* fill screen width */
     }
 
-    /* Icons stay visible while the background scrolls */
+    /* Full image visible, no side bars, maintains aspect ratio */
+    .hero img{
+      display: block;
+      width: 100vw;    /* no white space on the sides */
+      height: auto;    /* keep aspect ratio so bottom isn't cropped */
+    }
+
+    /* Icons stay fixed while you scroll the image */
     .icons{
       position: fixed;
       top: calc(max(var(--gap), env(safe-area-inset-top)));
@@ -57,11 +59,6 @@
 
     @media (max-width: 420px){
       :root{ --gap: 24px; --icon-size: 28px; }
-      .hero{ height: 120vh; } /* lighter scroll on small screens */
-    }
-
-    @media (min-width: 1440px){
-      .hero{ height: 240vh; } /* extra scroll on big laptops/monitors */
     }
   </style>
 </head>
@@ -82,7 +79,9 @@
     </a>
   </div>
 
-  <!-- Scrollable background image -->
-  <section class="hero" aria-hidden="true"></section>
+  <!-- Image fills width, full height remains viewable by scrolling -->
+  <section class="hero">
+    <img src="assets/1.jpg" alt="Background image" loading="eager" />
+  </section>
 </body>
 </html>
