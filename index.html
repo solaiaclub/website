@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>SOLAÌA CLUB</title>
+
+    <!-- Mono font close to the flyer look; falls back to system monospace -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { height: 100%; }
+      body { background: #fff; overflow: hidden; }
+
+      :root{
+        /* Warm orange sampled to match the flyer vibe */
+        --flyer-orange: #F7A64A;
+      }
+
+      .hero {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+      }
+
+      .hero img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+      }
+
+      /* stacked icons bottom-left */
+      .icons {
+        position: absolute;
+        bottom: max(25px, env(safe-area-inset-bottom)); /* slightly higher stack overall */
+        left: max(28px, env(safe-area-inset-left));
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px; /* smaller distance between the two icons */
+        z-index: 3;
+      }
+
+      .icons a {
+        display: inline-flex;
+        width: 30px;
+        height: 30px;
+      }
+
+      .icons svg {
+        width: 100%;
+        height: 100%;
+        stroke: var(--flyer-orange);
+        fill: none;
+        stroke-width: 1.0;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        transition: opacity 0.2s ease;
+      }
+      .icons a:hover svg { opacity: 0.6; }
+
+      /* TEXT OVERLAY — lower-left, like in the image */
+      .text-overlay{
+        position: absolute;
+        left: max(28px, env(safe-area-inset-left));
+        /* sit above the icons by ~80px so both are visible */
+        bottom: calc(max(25px, env(safe-area-inset-bottom)) + 80px);
+        font-family: "Space Mono", ui-monospace, SFMono-Regular, "Courier New", monospace;
+        color: var(--flyer-orange);
+        letter-spacing: 0.055em;    /* tight tracking like the poster */
+        line-height: 1.55;
+        z-index: 2;
+        max-width: min(92vw, 720px);
+        text-shadow: 0 0 0.01px rgba(0,0,0,0.01); /* anti-aliasing hint */
+        user-select: text;
+      }
+
+      .text-overlay .h{
+        font-weight: 700;
+        font-size: clamp(14px, 1.6vw, 18px);
+        margin-bottom: 6px;
+        text-transform: uppercase;
+      }
+      .text-overlay .sub{
+        font-weight: 400;
+        font-size: clamp(12px, 1.3vw, 16px);
+        opacity: 0.95;
+      }
+      .text-overlay .date{
+        margin-top: 18px;
+        font-weight: 700;
+        font-size: clamp(13px, 1.45vw, 17px);
+        text-transform: uppercase;
+      }
+      .text-overlay .meta{
+        font-weight: 400;
+        font-size: clamp(12px, 1.3vw, 16px);
+        opacity: 0.95;
+      }
+      .text-overlay .footer{
+        margin-top: 26px;
+        font-weight: 400;
+        font-size: clamp(12px, 1.25vw, 15px);
+        opacity: 0.95;
+      }
+
+      /* small screens: keep everything readable and in-place */
+      @media (max-width: 420px){
+        .icons a{ width: 28px; height: 28px; }
+        .text-overlay{ bottom: calc(max(22px, env(safe-area-inset-bottom)) + 76px); }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="hero">
+      <img src="assets/6.jpg" alt="SOLAÌA CLUB" loading="eager" />
+
+      <!-- Text block (lower-left), matching the poster -->
+      <div class="text-overlay" aria-label="Event details">
+        <div class="h">DANCE WITH US</div>
+        <div class="sub">house music | afro | melodic | indie dance</div>
+
+        <div class="date">NOV 15</div>
+        <div class="meta">from 8pm to 12am in ras al khaimah</div>
+
+        <div class="footer">electronic music | digital art | creative space</div>
+      </div>
+
+      <div class="icons">
+        <!-- Instagram (top) -->
+        <a href="https://instagram.com/solaiaclub" target="_blank" aria-label="Instagram" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="1"/>
+          </svg>
+        </a>
+
+        <!-- Email (below, now closer to Instagram) -->
+        <a href="#" onclick="window.location='mailto:' + 'solaiaclub' + '@' + 'proton.me'; return false;" aria-label="Email">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="14" rx="2" ry="2"/>
+            <polyline points="3 7,12 13,21 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>
