@@ -15,20 +15,18 @@
       --icon-color: #362114;
     }
 
-    /* Scrolls naturally with the page */
     .hero{
       position: relative;
-      width: 100vw;    /* fill screen width */
+      width: 100vw;
     }
 
-    /* Full image visible, no side bars, maintains aspect ratio */
     .hero img{
       display: block;
-      width: 100vw;    /* no white space on the sides */
-      height: auto;    /* keep aspect ratio so bottom isn't cropped */
+      width: 100vw;
+      height: auto;
     }
 
-    /* Icons stay fixed while you scroll the image */
+    /* Fixed icons (top left) */
     .icons{
       position: fixed;
       top: calc(max(var(--gap), env(safe-area-inset-top)));
@@ -55,7 +53,31 @@
       stroke-linejoin: round;
       transition: opacity .2s ease;
     }
+
     .icons a:hover svg{ opacity: .7; }
+
+    /* Scroll indicator arrow */
+    .scroll-arrow{
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 28px;
+      height: 28px;
+      stroke: var(--icon-color);
+      fill: none;
+      stroke-width: 1.1;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 1;
+      transition: opacity 0.35s ease;
+      z-index: 9;
+      pointer-events: none;
+    }
+
+    .scroll-arrow.hidden {
+      opacity: 0;
+    }
 
     @media (max-width: 420px){
       :root{ --gap: 24px; --icon-size: 28px; }
@@ -63,6 +85,7 @@
   </style>
 </head>
 <body>
+  <!-- Fixed icons -->
   <div class="icons" aria-label="Links">
     <a href="https://instagram.com/solaiaclub" target="_blank" rel="noopener" aria-label="Instagram">
       <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -79,9 +102,38 @@
     </a>
   </div>
 
-  <!-- Image fills width, full height remains viewable by scrolling -->
+  <!-- Minimalist scroll indicator -->
+  <svg class="scroll-arrow" viewBox="0 0 24 24" aria-hidden="true">
+    <polyline points="6 9 12 15 18 9"/>
+  </svg>
+
+  <!-- Image fills width -->
   <section class="hero">
     <img src="assets/website_v1.jpg" alt="Background image" loading="eager" />
   </section>
+
+  <script>
+    const arrow = document.querySelector('.scroll-arrow');
+
+    function toggleArrow() {
+      const doc = document.documentElement;
+      const scrollY = window.scrollY || doc.scrollTop;
+      const viewportH = window.innerHeight;
+      const fullH = doc.scrollHeight;
+
+      // true if user is basically at bottom (2px tolerance)
+      const atBottom = Math.ceil(scrollY + viewportH) >= fullH - 2;
+
+      if (atBottom) {
+        arrow.classList.add('hidden');
+      } else {
+        arrow.classList.remove('hidden');
+      }
+    }
+
+    // run on load and on scroll
+    window.addEventListener('scroll', toggleArrow);
+    window.addEventListener('load', toggleArrow);
+  </script>
 </body>
 </html>
